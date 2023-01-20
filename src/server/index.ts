@@ -6,6 +6,8 @@ import { withRefResolver } from 'fastify-zod';
 import { version } from '../../package.json';
 import { options } from '../config/config';
 import { prettyLog } from '../utils/prettyLog';
+import { productSchemas } from '../modules/product/product.schema';
+import { productRoutes } from '../modules/product/product.routes';
 
 export async function buildServer() {
   const server = Fastify({
@@ -36,6 +38,10 @@ export async function buildServer() {
     return { status: 'OK' };
   });
 
+  for (const schema of [...productSchemas]) {
+    server.addSchema(schema)
+  }
+
   server.register(
     fastifySwagger,
     withRefResolver({
@@ -51,5 +57,9 @@ export async function buildServer() {
       },
     })
   );
+
+  server.register(productRoutes, { prefix: 'api/products' })
+
+
   return server;
 }
