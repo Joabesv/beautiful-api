@@ -1,14 +1,22 @@
 import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
+import fastifyEnv from '@fastify/env';
 import fastifyJWT from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
 import { withRefResolver } from 'fastify-zod';
 import { version } from '../../package.json';
+import { options } from '../config/config';
+import { prettyLog } from '../utils/prettyLog';
 
-export function buildServer() {
-  const server = Fastify({ logger: true });
-
+export async function buildServer() {
+  const server = Fastify({
+    logger: {
+      transport: prettyLog,
+    },
+  });
+  
+  await server.register(fastifyEnv, options);
   server.register(fastifyJWT, {
-    secret: process.env.JWT_SECRET as string,
+    secret: server.config.JWT_SECRET as string,
   });
 
   server.decorate(
@@ -43,4 +51,5 @@ export function buildServer() {
       },
     })
   );
+  return server;
 }
