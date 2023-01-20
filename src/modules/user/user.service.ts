@@ -1,16 +1,20 @@
 import { p } from '../../database/connection';
-import { hashPassword } from '../../utils/hash'
-import type { CreateUserInput } from './user.schema'
+import { hashPassword } from '../../utils/hash';
+import type { CreateUserInput } from './user.schema';
 
 export async function createUser(input: CreateUserInput) {
   const { password, ...userInput } = input;
   const { hash, salt } = hashPassword(password);
 
   const user = await p.user.create({
-    data: { ...userInput, salt, password: hash }
-  })
+    data: { ...userInput, salt, password: hash },
+  });
 
   return user;
+}
+
+export async function findUserByEmail(email: string) {
+  return p.user.findUnique({ where: { email } });
 }
 
 export async function findUsers() {
