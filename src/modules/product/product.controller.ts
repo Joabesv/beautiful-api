@@ -1,9 +1,9 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 import type { CreateProductInput } from './product.schema';
 import { createProduct, getProducts } from './product.service'
 
 export async function createProductHandler(
-  request: FastifyRequest<{ Body: CreateProductInput }>
+  request: FastifyRequest<{ Body: CreateProductInput }>,
 ) {
   // @ts-ignore
   const { id } = request.user
