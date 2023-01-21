@@ -8,6 +8,8 @@ import { options } from '../config/config';
 import { prettyLog } from '../utils/prettyLog';
 import { productSchemas } from '../modules/product/product.schema';
 import { productRoutes } from '../modules/product/product.routes';
+import { userSchemas } from '../modules/user/user.schema';
+import { userRoutes } from '../modules/user/user.routes';
 
 export async function buildServer() {
   const server = Fastify({
@@ -38,7 +40,7 @@ export async function buildServer() {
     return { status: 'OK' };
   });
 
-  for (const schema of [...productSchemas]) {
+  for (const schema of [...userSchemas ,...productSchemas]) {
     server.addSchema(schema)
   }
 
@@ -58,8 +60,8 @@ export async function buildServer() {
     })
   );
 
+  server.register(userRoutes, { prefix: '/api/users' })
   server.register(productRoutes, { prefix: 'api/products' })
-
 
   return server;
 }
