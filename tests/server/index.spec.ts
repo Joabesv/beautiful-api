@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'vitest';
-import { buildServer } from '../src/server';
+import { afterAll, describe, expect, test } from 'vitest';
+import { buildServer } from '../../src/server';
 
 
 describe('App tests' ,() => {
@@ -13,4 +13,8 @@ describe('App tests' ,() => {
     expect(response.statusCode).toEqual(200)
     expect(response.json()).toEqual({ "status": "OK" })
   });
+
+  afterAll(async () => {
+   await (await buildServer()).close()
+  })
 })
