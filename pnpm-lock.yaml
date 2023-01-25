@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@faker-js/faker': ^7.6.0
   '@fastify/env': ^4.2.0
   '@fastify/jwt': ^6.5.0
   '@fastify/sensible': ^5.2.0
@@ -31,6 +32,7 @@ dependencies:
   zod: 3.20.2
 
 devDependencies:
+  '@faker-js/faker': 7.6.0
   '@types/node': 18.11.18
   '@vitest/coverage-c8': 0.27.3_@vitest+ui@0.27.3
   '@vitest/ui': 0.27.3
@@ -284,6 +286,11 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@faker-js/faker/7.6.0:
+    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: true
 
   /@fastify/accept-negotiator/1.1.0:
     resolution: {integrity: sha512-OIHZrb2ImZ7XG85HXOONLcJWGosv7sIvM2ifAPQVhg9Lv7qdmMBNVaai4QTdyuaqbKM5eO6sLSQOYI7wEQeCJQ==}

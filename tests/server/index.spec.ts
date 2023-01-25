@@ -2,9 +2,9 @@ import { afterAll, describe, expect, test } from 'vitest';
 import { buildServer } from '../../src/server';
 
 
-describe('App tests' ,() => {
+describe('App tests' , async () => {
+  const fastify = await buildServer();
   test('request the healthCheck', async () => {
-    const fastify = await buildServer();
     const response = await fastify.inject({
       method: 'GET',
       url: '/healthCheck'
@@ -15,6 +15,6 @@ describe('App tests' ,() => {
   });
 
   afterAll(async () => {
-   await (await buildServer()).close()
+   fastify.close();
   })
 })
