@@ -6,7 +6,6 @@ async function server() {
     await app.listen({ port: 5000, host: '0.0.0.0' });
     app.log.info('server ready at http://localhost:5000');
   } catch (e) {
-    // app.log.info(app.config)
     app.log.error(e, 'Error in server startup');
     process.exit(1);
   }
