@@ -1,8 +1,8 @@
-import { buildJsonSchemas } from 'fastify-zod';
 import { z } from 'zod';
+import { buildJsonSchemas } from 'fastify-zod';
 
 const productInput = {
-  title: z.string().min(10).max(255),
+  title: z.string(),
   price: z.number(),
   content: z.string().optional(),
 };

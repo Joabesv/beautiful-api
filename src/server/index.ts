@@ -17,7 +17,7 @@ export async function buildServer() {
       transport: prettyLog,
     },
   });
-  
+
   await server.register(fastifyEnv, options);
   server.register(fastifyJWT, {
     secret: server.config.JWT_SECRET as string,
@@ -40,8 +40,13 @@ export async function buildServer() {
     return { status: 'OK' };
   });
 
-  for (const schema of [...userSchemas ,...productSchemas]) {
-    server.addSchema(schema)
+  server.addHook('preHandler', (req, reply, done) => {
+    req.jwt = server.jwt;
+    return done();
+  });
+
+  for (const schema of [...userSchemas, ...productSchemas]) {
+    server.addSchema(schema);
   }
 
   server.register(
@@ -60,8 +65,8 @@ export async function buildServer() {
     })
   );
 
-  server.register(userRoutes, { prefix: '/api/users' })
-  server.register(productRoutes, { prefix: 'api/products' })
+  server.register(userRoutes, { prefix: '/api/users' });
+  server.register(productRoutes, { prefix: '/api/products' });
 
   return server;
 }
