@@ -5,11 +5,10 @@ import { createProduct, getProducts } from './product.service';
 export async function createProductHandler(
   request: FastifyRequest<{ Body: CreateProductInput }>
 ) {
-  const { id } = request.user;
 
   const product = await createProduct({
     ...request.body,
-    ownerId: id,
+    ownerId: request.user.id,
   });
 
   return product;
@@ -17,6 +16,5 @@ export async function createProductHandler(
 
 export async function getProductsHandler() {
   const products = await getProducts();
-
   return products;
 }

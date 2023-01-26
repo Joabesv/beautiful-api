@@ -14,7 +14,7 @@ export async function registerUserHandler(
     return reply.code(201).send(user);
   } catch (e) {
     console.log(e);
-    return;
+    return reply.send({ msg: 'Error Creating user', error: e.message });
   }
 }
 
